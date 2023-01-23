@@ -14,10 +14,10 @@ public class UnitActionSystem : MonoBehaviour
     [SerializeField]
     private Unit selectedUnit;
 
-
     [SerializeField]
     private LayerMask unitLayerMask;
 
+    private bool isBusy;
 
     void Awake()
     {
@@ -32,6 +32,11 @@ public class UnitActionSystem : MonoBehaviour
 
     void Update()
     {
+        if (isBusy)
+        {
+            return;
+        }
+
         if (Input.GetMouseButtonDown(((int)MouseButton.Left)))
         {
             if (TryHandleUnitSelection()) return;
@@ -40,10 +45,27 @@ public class UnitActionSystem : MonoBehaviour
             
             if (selectedUnit.GetMoveAction().IsValidActionGridPosition(mouseGridPosition))
             {
-                selectedUnit.GetMoveAction().Move(mouseGridPosition);
+                SetBusy();
+                selectedUnit.GetMoveAction().Move(mouseGridPosition, ClearBusy);
             }
             
         }
+
+        if (Input.GetMouseButtonDown(((int)MouseButton.Right)))
+        {
+            SetBusy();
+            selectedUnit.GetSpinAction().Spin(ClearBusy);
+        }
+    }
+
+    private void SetBusy()
+    {
+        isBusy= true;
+    }
+
+    private void ClearBusy()
+    {
+        isBusy= false;
     }
 
     private Boolean TryHandleUnitSelection()
