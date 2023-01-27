@@ -21,16 +21,14 @@ public class SpinAction : BaseAction
         if (totalSpinAmount >= 360f)
         {
             spinAddAmount = 360f - (totalSpinAmount - spinAddAmount);
-            isActive = false;
-            onActionComplete();
+            ActionComplete();
         }
         transform.eulerAngles += new Vector3(0, spinAddAmount, 0);
     }
     public override void TakeAction(GridPosition _, Action onActionComplete)
     {
-        this.onActionComplete = onActionComplete;
+        ActionStart(onActionComplete);
         totalSpinAmount = 0f;
-        isActive = true;
     }
 
     public override List<GridPosition> GetValidActionGridPositionList()
