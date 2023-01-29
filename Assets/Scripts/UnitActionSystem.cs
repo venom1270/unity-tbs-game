@@ -38,6 +38,32 @@ public class UnitActionSystem : MonoBehaviour
     private void Start()
     {
         SetSelectedUnit(selectedUnit);
+
+        // If player unit dies on enemy turn, listen for NextTurn event to seelct first valid unit
+        TurnSystem.Instance.OnTurnChanged += TurnSystem_OnTurnChanged;
+    }
+
+    private void TurnSystem_OnTurnChanged(object sender, EventArgs e)
+    {
+        if (TurnSystem.Instance.IsPlayerTurn())
+        {
+            if (selectedUnit == null)
+            {
+                List<Unit> friendlyUnits = UnitManager.Instance.GetFriendlyUnitList();
+                if (friendlyUnits.Count > 0)
+                {
+                    SetSelectedUnit(friendlyUnits[0]);
+                }
+                else
+                {
+                    // TODO: GAME OVER
+                    // Exception
+                    Debug.Log("GAME OVER!");
+                    Application.Quit();
+                    UnityEditor.EditorApplication.isPlaying = false;
+                }
+            }
+        }
     }
 
     void Update()
