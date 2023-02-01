@@ -350,7 +350,7 @@ PrefabInstance:
     - target: {fileID: 4956606061843225934, guid: b305c99f35495ca489ea214884e6261f,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 20.500204
+      value: 20.5005
       objectReference: {fileID: 0}
     - target: {fileID: 4956606061843225934, guid: b305c99f35495ca489ea214884e6261f,
         type: 3}
@@ -1018,7 +1018,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 330585543}
-  m_LocalRotation: {x: 0.3006394, y: -0.000000016410377, z: 0.000000005172915, w: 0.9537379}
+  m_LocalRotation: {x: 0.3006394, y: 0.000000016410377, z: -0.000000005172915, w: 0.9537379}
   m_LocalPosition: {x: 0, y: 7, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -2144,7 +2144,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 806111313}
-  m_LocalRotation: {x: 0.3006394, y: -0.000000016410377, z: 0.000000005172915, w: 0.9537379}
+  m_LocalRotation: {x: 0.3006394, y: 0.000000016410377, z: -0.000000005172915, w: 0.9537379}
   m_LocalPosition: {x: 0, y: 7, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -2352,7 +2352,7 @@ PrefabInstance:
     - target: {fileID: 4956606061843225934, guid: b305c99f35495ca489ea214884e6261f,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 12.518488
+      value: 13.017975
       objectReference: {fileID: 0}
     - target: {fileID: 4956606061843225934, guid: b305c99f35495ca489ea214884e6261f,
         type: 3}
@@ -2646,7 +2646,7 @@ PrefabInstance:
     - target: {fileID: 4956606061843225934, guid: b305c99f35495ca489ea214884e6261f,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 10.496357
+      value: 12.497516
       objectReference: {fileID: 0}
     - target: {fileID: 4956606061843225934, guid: b305c99f35495ca489ea214884e6261f,
         type: 3}
@@ -3313,7 +3313,7 @@ PrefabInstance:
     - target: {fileID: 4956606061843225934, guid: b305c99f35495ca489ea214884e6261f,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 38.5
+      value: 39.5
       objectReference: {fileID: 0}
     - target: {fileID: 4956606061843225934, guid: b305c99f35495ca489ea214884e6261f,
         type: 3}
@@ -5016,6 +5016,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   unit: {fileID: 1532804367}
+  pathfindingDebugObjectPrefab: {fileID: 6972535964579967788, guid: 11a138de0e35f5d4f93a5e608424b0da,
+    type: 3}
 --- !u!4 &2078365201
 Transform:
   m_ObjectHideFlags: 0
@@ -5188,7 +5190,7 @@ PrefabInstance:
     - target: {fileID: 4956606061843225934, guid: b305c99f35495ca489ea214884e6261f,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 39.993366
+      value: 40.9932
       objectReference: {fileID: 0}
     - target: {fileID: 4956606061843225934, guid: b305c99f35495ca489ea214884e6261f,
         type: 3}
@@ -5203,7 +5205,7 @@ PrefabInstance:
     - target: {fileID: 4956606061843225934, guid: b305c99f35495ca489ea214884e6261f,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 38.49649
+      value: 39.496483
       objectReference: {fileID: 0}
     - target: {fileID: 4956606061843225934, guid: b305c99f35495ca489ea214884e6261f,
         type: 3}
@@ -5337,7 +5339,7 @@ PrefabInstance:
     - target: {fileID: 7146649681694160483, guid: 474c187b7d08b924e842a4752c165ab2,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 9
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 7146649681694160483, guid: 474c187b7d08b924e842a4752c165ab2,
         type: 3}
@@ -5388,6 +5390,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: WallDoor
+      objectReference: {fileID: 0}
+    - target: {fileID: 7150547224976662949, guid: 474c187b7d08b924e842a4752c165ab2,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 474c187b7d08b924e842a4752c165ab2, type: 3}
