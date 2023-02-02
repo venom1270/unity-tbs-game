@@ -8,6 +8,7 @@ using UnityEngine.EventSystems;
 public class ShootAction : BaseAction
 {
 
+    public static event EventHandler<OnShootEventArgs> OnAnyShoot;
     public event EventHandler<OnShootEventArgs> OnShoot;
 
     public class OnShootEventArgs : EventArgs
@@ -92,6 +93,12 @@ public class ShootAction : BaseAction
             targetUnit = targetUnit,
             shootingUnit = unit
         });
+
+        OnAnyShoot?.Invoke(this, new OnShootEventArgs
+        {
+            targetUnit = targetUnit,
+            shootingUnit = unit
+        });
         targetUnit.Damage(40);
     }
 
@@ -145,9 +152,22 @@ public class ShootAction : BaseAction
                 // Check if unit sees target unit (if does not hit obstacle)
                 Vector3 unitWorldPosition = LevelGrid.Instance.GetWorldPosition(unitGridPosition);
                 Vector3 shootDir = (targetUnit.GetWorldPosition() - unitWorldPosition).normalized; 
-                float unitShoulderHeight = 1.7f;
+                float unitShoulderHeight = 1.45f; //1.7f
+
+                // Get gun offset - first create test GO, set it at 0 position/roatation, aim to target, and calculate offset
+                float righthandGunOffset = 0.14f;
+                Vector3 aimDirection = (targetUnit.GetWorldPosition() - unit.GetWorldPosition()).normalized;
+                GameObject testObject = new GameObject();
+                testObject.transform.position = Vector3.zero;
+                testObject.transform.rotation = Quaternion.identity;
+                testObject.transform.forward = aimDirection;
+                Destroy(testObject);
+                Vector3 rightHandGunWorldOffset = testObject.transform.TransformPoint(Vector3.right * righthandGunOffset);
+                //Debug.Log(rightHandGunWorldOffset);
+                // End Get gun offset
+
                 if (Physics.Raycast(
-                    unitWorldPosition + Vector3.up * unitShoulderHeight, 
+                    unitWorldPosition + Vector3.up * unitShoulderHeight + rightHandGunWorldOffset, 
                     shootDir,
                     Vector3.Distance(unitWorldPosition, targetUnit.GetWorldPosition()),
                     obstaclesLayerMask))
@@ -155,6 +175,12 @@ public class ShootAction : BaseAction
                     // Blocked by an obstacle
                     continue;
                 }
+                /*Debug.DrawLine(
+                    unitWorldPosition + Vector3.up * unitShoulderHeight + rightHandGunWorldOffset, 
+                    targetUnit.GetWorldPosition() + Vector3.up * unitShoulderHeight, 
+                    Color.green, 
+                    10f
+                ); FOR DEBUGGING SHOOT VISIBILITY */
 
                 validGridPositionList.Add(testGridPosition);
             }

@@ -60,7 +60,7 @@ public class UnitActionSystem : MonoBehaviour
                     // Exception
                     Debug.Log("GAME OVER!");
                     Application.Quit();
-                    UnityEditor.EditorApplication.isPlaying = false;
+                    //UnityEditor.EditorApplication.isPlaying = false;
                 }
             }
         }
