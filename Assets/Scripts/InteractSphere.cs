@@ -20,9 +20,9 @@ public class InteractSphere : MonoBehaviour, IInteractable
     private GridPosition gridPosition;
     private bool isGreen;
     private Action onInteractionComplete;
-    private float timer;
-    private const float TIMER_DURATION = 1f;
-    private bool isActive;
+    //private float timer;
+    //private const float TIMER_DURATION = 1f;
+    //private bool isActive;
     private void Start()
     {
         gridPosition = LevelGrid.Instance.GetGridPosition(transform.position);
@@ -46,8 +46,8 @@ public class InteractSphere : MonoBehaviour, IInteractable
     public void Interact(Action onInteractionComplete)
     {
         this.onInteractionComplete = onInteractionComplete;
-        isActive = true;
-        timer = .5f; 
+        //isActive = true;
+        //timer = .5f; 
 
         if (isGreen)
         {
