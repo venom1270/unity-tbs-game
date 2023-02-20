@@ -26,7 +26,44 @@ public class CameraManager : MonoBehaviour
 
     private void BaseAction_OnAnyActionStarted(object sender, EventArgs e)
     {
-        switch (sender)
+        if (sender is ShootAction)
+        {
+            ShootAction shootAction = sender as ShootAction;
+            Unit shooterUnit = shootAction.GetUnit();
+            Unit targetUnit = shootAction.GetTargetUnit();
+
+            Vector3 cameraCharacterHeight = Vector3.up * 1.7f;
+            Vector3 shootDir = (targetUnit.GetWorldPosition() - shooterUnit.GetWorldPosition()).normalized;
+            float shoulderOffsetAmount = 0.5f;
+            Vector3 shoulderOffset = Quaternion.Euler(0, 90, 0) * shootDir * shoulderOffsetAmount;
+
+            // position + up height + offest to shoulder + go back to see shooting unit
+            Vector3 actionCameraPosition = shooterUnit.GetWorldPosition() + cameraCharacterHeight + shoulderOffset + (shootDir * -1);
+
+            actionCameraGameObject.transform.position = actionCameraPosition;
+            actionCameraGameObject.transform.LookAt(targetUnit.GetWorldPosition() + cameraCharacterHeight);
+            ShowActionCamera();
+        }
+        else if (sender is ShootAvengerAction)
+        {
+            ShootAvengerAction shootAction = sender as ShootAvengerAction;
+            Unit shooterUnit = shootAction.GetUnit();
+            Unit targetUnit = shootAction.GetTargetUnit();
+
+            Vector3 cameraCharacterHeight = Vector3.up * 1.7f;
+            Vector3 shootDir = (targetUnit.GetWorldPosition() - shooterUnit.GetWorldPosition()).normalized;
+            float shoulderOffsetAmount = 0.5f;
+            Vector3 shoulderOffset = Quaternion.Euler(0, 90, 0) * shootDir * shoulderOffsetAmount;
+
+            // position + up height + offest to shoulder + go back to see shooting unit
+            Vector3 actionCameraPosition = shooterUnit.GetWorldPosition() + cameraCharacterHeight + shoulderOffset + (shootDir * -1);
+
+            actionCameraGameObject.transform.position = actionCameraPosition;
+            actionCameraGameObject.transform.LookAt(targetUnit.GetWorldPosition() + cameraCharacterHeight);
+            ShowActionCamera();
+        }
+
+        /*switch (sender)
         {
             case ShootAction shootAction:
                 Unit shooterUnit = shootAction.GetUnit();
@@ -44,7 +81,7 @@ public class CameraManager : MonoBehaviour
                 actionCameraGameObject.transform.LookAt(targetUnit.GetWorldPosition() + cameraCharacterHeight);
                 ShowActionCamera();
                 break;
-        }
+        }*/
     }
 
     private void BaseAction_OnAnyActionCompleted(object sender, EventArgs e)
@@ -52,6 +89,9 @@ public class CameraManager : MonoBehaviour
         switch (sender)
         {
             case ShootAction shootAction:
+                HideActionCamera();
+                break;
+            case ShootAvengerAction shootAvengerAction:
                 HideActionCamera();
                 break;
         }

@@ -10,6 +10,8 @@ public class DestroyAfterDelay : MonoBehaviour
     private float startTime;
     private float destroyAtTime;
 
+    bool qwe = false;
+
     void Start()
     {
         startTime = Time.time;
@@ -23,7 +25,33 @@ public class DestroyAfterDelay : MonoBehaviour
     {
         if (destroyAtTime < Time.time) 
         {
-            Destroy(gameObject);
+            if (qwe)
+            {
+                Destroy(gameObject);
+            }
+            else
+            {
+                qwe = true;
+                destroyAtTime += destroyAfterSeconds;
+                foreach (Transform t in transform.GetComponentsInChildren<Transform>())
+                {
+                    if (t.TryGetComponent<MeshCollider>(out MeshCollider mc))
+                    {
+                        mc.enabled = false;
+                    }
+                }
+            }
+            
         }
+
+        if (qwe)
+        {
+            Vector3 pos = transform.position;
+            float speed = 0.005f; //* Time.deltaTime;
+            pos.y -= speed;
+            Debug.Log(speed);
+            transform.position = pos;
+        }
+        
     }
 }

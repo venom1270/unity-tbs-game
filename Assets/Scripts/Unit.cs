@@ -1,13 +1,15 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
 using Unity.VisualScripting;
 using UnityEngine;
 
 public class Unit : MonoBehaviour
 {
 
-    private const int ACTION_POINTS_MAX = 2;
+    private const int ACTION_POINTS_MAX = 3;
 
     public static event EventHandler OnAnyActionPointsChanged;
     public static event EventHandler OnAnyUnitSpawned;
@@ -18,13 +20,13 @@ public class Unit : MonoBehaviour
 
     private GridPosition gridPosition;
     private HealthSystem healthSystem;
-    private BaseAction[] baseActionArray;
+    private List<BaseAction> baseActionList;
     private int actionPoints = ACTION_POINTS_MAX;
 
     private void Awake()
     {
         healthSystem = GetComponent<HealthSystem>();
-        baseActionArray = GetComponents<BaseAction>();
+        baseActionList = GetComponents<BaseAction>().ToList();
     }
 
     private void Start()
@@ -53,7 +55,7 @@ public class Unit : MonoBehaviour
 
     public T GetAction<T>() where T : BaseAction
     {
-        foreach (BaseAction baseAction in baseActionArray)
+        foreach (BaseAction baseAction in baseActionList)
         {
             if (baseAction is T)
             {
@@ -72,7 +74,7 @@ public class Unit : MonoBehaviour
     {
         return transform.position;
     }
-    public BaseAction[] GetBaseActionArray() => baseActionArray;
+    public List<BaseAction> GetBaseActionArray() => baseActionList;
 
 
     public bool TrySpendActionPointsToTakeAction(BaseAction baseAction)
@@ -129,4 +131,12 @@ public class Unit : MonoBehaviour
     }
 
     public float GetHealthNormalized() => healthSystem.GetHealthNormalized();
+
+    public void AddAction<T>() where T: BaseAction
+    {
+        Component t = this.AddComponent<T>();
+        baseActionList.Add(t as BaseAction);
+
+        Debug.Log("Dodan action!");
+    }
 }

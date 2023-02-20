@@ -65,6 +65,8 @@ public class GridSystemVisual : MonoBehaviour
         UnitActionSystem.Instance.OnSelectedActionChanged += UnitActionSystem_OnSelectedActionChanged;
         LevelGrid.Instance.OnAnyUnitMovedGridPosition += LevelGrid_OnAnyUnitMovedGridPosition;
 
+        InteractWeapon.OnWeaponPickedUp += InteractWeapon_OnWeaponPickedUp;
+
         UpdateGridVisual();
     }
 
@@ -153,6 +155,11 @@ public class GridSystemVisual : MonoBehaviour
             case SpinAction spinAction:
                 gridVisualType = GridVisualType.Blue;
                 break;
+            case ShootAvengerAction shootAvengerAction:
+                gridVisualType = GridVisualType.Red;
+
+                ShowGridPositionRange(selectedUnit.GetGridPosition(), shootAvengerAction.GetMaxShootDistance(), GridVisualType.RedSoft);
+                break;
             case ShootAction shootAction:
                 gridVisualType = GridVisualType.Red;
 
@@ -179,6 +186,11 @@ public class GridSystemVisual : MonoBehaviour
     }
 
     private void LevelGrid_OnAnyUnitMovedGridPosition(object sender, EventArgs e)
+    {
+        UpdateGridVisual();
+    }
+
+    private void InteractWeapon_OnWeaponPickedUp(object sender, EventArgs e)
     {
         UpdateGridVisual();
     }
